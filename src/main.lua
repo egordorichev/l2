@@ -4,9 +4,6 @@ DEBUG = not RELEASE
 require "l2.error"
 libs = require "l2.libs"
 
-local paths = love.filesystem.getRequirePath()
-love.filesystem.setRequirePath(paths .. ";l2/?.lua;l2/?/init.lua;")
-
 for i, m in ipairs(require "require") do
 	local succes, message = pcall(require, m)
 

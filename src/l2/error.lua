@@ -1,6 +1,5 @@
 function love.errhand(msg)
 	msg = tostring(msg)
-
 	print((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
 
 	if not love.window or not love.graphics or not love.event then
@@ -9,6 +8,7 @@ function love.errhand(msg)
 
 	if not love.graphics.isCreated() or not love.window.isCreated() then
 		local success, status = pcall(love.window.setMode, 800, 600)
+
 		if not success or not status then
 			return
 		end
