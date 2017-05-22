@@ -1,6 +1,6 @@
 state = object:extend()
 
-function state:new(s)
+function state:new()
 
 end
 

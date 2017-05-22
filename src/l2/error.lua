@@ -1,3 +1,7 @@
+if DEBUG then
+	return
+end
+
 function love.errhand(msg)
 	msg = tostring(msg)
 	print((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
