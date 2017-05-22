@@ -14,5 +14,5 @@ end
 
 function camera.mapMousePosition()
     local scale = 1 / game.scale
-	return love.mouse.getX() * scale + self.x, love.mouse.getY() * scale + self.y
+	return love.mouse.getX() * scale + camera.x, love.mouse.getY() * scale + camera.y
 end

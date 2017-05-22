@@ -75,7 +75,3 @@ end
 function input.mapMousePosition()
 	return input.mousePosition.x, input.mousePosition.y
 end
-
-function input.getMouseVelocity()
-	return input.mouseVelocity.x, input.mouseVelocity.y
-end

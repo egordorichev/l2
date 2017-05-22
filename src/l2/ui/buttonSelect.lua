@@ -1,7 +1,7 @@
-select = button:extend()
+buttonSelect = button:extend()
 
-function select:new(variants, x, y, w, h)
-	select.super.new(self, variants[1], x, y, w, h)
+function buttonSelect:new(variants, x, y, w, h)
+	buttonSelect.super.new(self, variants[1], x, y, w, h)
 
 	self.variants = variants
 	self.variant = 1
@@ -20,15 +20,15 @@ function select:new(variants, x, y, w, h)
 	end))
 end
 
-function select:getVariant()
+function buttonSelect:getVariant()
 	return self.variants[self.variant]
 end
 
-function select:getVariantIndex()
+function buttonSelect:getVariantIndex()
 	return self.variant
 end
 
-function select:onChange(callback)
+function buttonSelect:onChange(callback)
 	self.onChangeCallback = callback
 	return self
 end

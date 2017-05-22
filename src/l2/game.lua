@@ -13,6 +13,12 @@ function game:new()
 end
 
 function game:init(state)
+	font = love.graphics.newImageFont("data/fonts/font.png", 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?[](){}.,;:<>+=%#^*~/\\|$@&`"\'-_ 0', 1)
+
+	love.graphics.setFont(font)
+	love.graphics.setColor(255, 255, 255)
+	love.graphics.setBackgroundColor(255, 255, 255)
+
 	self.elapsed = 0
 	self.pendingState = nil
 
@@ -53,6 +59,8 @@ function game:update(dt)
 
 	self.elapsed = self.elapsed + dt
 	self.state:update(dt)
+
+	input.reset()
 end
 
 function game:save()

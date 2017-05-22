@@ -36,13 +36,7 @@ function love.errhand(msg)
 	love.graphics.reset()
 	local font = love.graphics.setNewFont(math.floor(love.window.toPixels(18)))
 
-	local sRGB = select(3, love.window.getMode()).srgb
-
-	if sRGB and love.math then
-		love.graphics.setBackgroundColor(love.math.gammaToLinear(89, 157, 220))
-	else
-		love.graphics.setBackgroundColor(12, 12, 12)
-	end
+	love.graphics.setBackgroundColor(12, 12, 12)
 
 	love.graphics.setColor(255, 255, 255, 255)
 

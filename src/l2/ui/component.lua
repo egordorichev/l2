@@ -1,13 +1,13 @@
-component = rect:extend()
+ component = rect:extend()
 
-component.normal = 0
-component.hovered = 1
-component.clicked = 2
+local normal = 0
+local hovered = 1
+local clicked = 2
 
 function component:new(x, y, w, h)
 	component.super.new(self, x, y, w, h)
 
-	self.state = component.normal
+	self.state = normal
 	self.onClickCallback = function() end
 	self.onHoverCallback = function() end
 	self.onMouseOutCallback = function() end
@@ -22,23 +22,25 @@ function component:draw()
 
 end
 
-function component:update()
-	local x, y = input.mapMousePosition()
+function component:update() -- doesn't work: fixme
+	local x, y = camera.mapMousePosition()
+
+    print(self.state)
 
 	if self:containsPoint(x, y) then
 		if love.mouse.isDown(1) then
-			if self.state ~= component.clicked then
-				self.state = component.clicked
+			if self.state ~= clicked then
+				self.state = clicked
 				self:onStateChange()
 			end
 		else
-			if self.state ~= component.hovered then
-				self.state = component.hovered
+			if self.state ~= hovered then
+				self.state = hovered
 				self:onStateChange()
 			end
 		end
-	elseif self.state ~= component.normal then
-		self.state = component.normal
+	elseif self.state ~= normal then
+		self.state = normal
 		self:onStateChange()
 	end
 end

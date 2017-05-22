@@ -5,7 +5,6 @@ function button:new(label, x, y, w, h)
 
 	self:setLabel(label)
 
-	self.texture = self.texture
 	self.quads = {}
 
 	table.insert(self.quads, love.graphics.newQuad(0, 0, 2, 2, 12, 4))
@@ -23,12 +22,12 @@ function button:new(label, x, y, w, h)
 	table.insert(self.quads, love.graphics.newQuad(8, 2, 2, 2, 12, 4))
 	table.insert(self.quads, love.graphics.newQuad(10, 2, 2, 2, 12, 4))
 
-	self.texture = cache.load("data/images/button.png")
+	self.texture = assets.load("data/images/button.png")
 end
 
 function button:setLabel(label)
 	self.label = label
-	self.labelPosition = vector(lume.round(self.x + (self.w - game.font:getWidth(self.label)) / 2), lume.round(self.y + (self.h - 5) / 2) - 2)
+	self.labelPosition = vector(lume.round(self.x + (self.w - font:getWidth(self.label)) / 2), lume.round(self.y + (self.h - 5) / 2) - 2)
 end
 
 function button:draw()
@@ -40,9 +39,7 @@ function button:draw()
 		self:drawFrom(9)
 	end
 
-	love.graphics.setShader() -- HERE!
 	util.drawTextWithStroke(self.label, self.labelPosition.x, self.labelPosition.y)
-	love.graphics.setShader(pallete.shader) -- HERE!
 end
 
 function button:drawFrom(from)
