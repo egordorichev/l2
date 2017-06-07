@@ -1,5 +1,5 @@
 function love.load()
-	game:init(ingame)
+	game:init(ingame())
 end
 
 function love.draw()

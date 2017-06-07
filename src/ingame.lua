@@ -1,4 +1,5 @@
 ingame = state:extend()
+ingame_canvas = nil
 
 function ingame:init()
     input.register({
@@ -16,12 +17,24 @@ function ingame:init()
 	end))
 
     self.ui:add(buttonSelect({ "one", "another", "third" }, 160 - 50, 2, 48, 14):onChange(function(s)
-        -- print(s:getVariant())
+        print(s:getVariant())
     end))
+
+    game.scale = 3
+    ingame_canvas = love.graphics.newCanvas(game.width / game.scale, game.height / game.scale)
+    ingame_canvas:setFilter("nearest", "nearest")
+
+    love.graphics.setBackgroundColor(255, 255, 255)
 end
 
 function ingame:draw()
+    love.graphics.setCanvas(ingame_canvas)
+    love.graphics.clear()
+
     self.ui:draw()
+
+    love.graphics.setCanvas()
+    love.graphics.draw(ingame_canvas, 0, 0, 0, game.scale, game.scale)
 end
 
 function ingame:update(dt)

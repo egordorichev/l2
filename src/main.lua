@@ -4,8 +4,6 @@ DEBUG = not RELEASE
 require "l2.error"
 libs = require "l2.libs"
 
-love.graphics.setDefaultFilter("nearest", "nearest")
-
 for i, m in ipairs(require "require") do
 	local succes, message = pcall(require, m)
 

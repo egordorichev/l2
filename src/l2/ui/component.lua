@@ -25,8 +25,6 @@ end
 function component:update() -- doesn't work: fixme
 	local x, y = camera.mapMousePosition()
 
-    print(self.state)
-
 	if self:containsPoint(x, y) then
 		if love.mouse.isDown(1) then
 			if self.state ~= clicked then

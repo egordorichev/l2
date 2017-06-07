@@ -13,5 +13,6 @@ return {
 	"l2.state",
 	"l2.game",
 	"menu",
-	"ingame"
+	"ingame",
+	"splash"
 }
