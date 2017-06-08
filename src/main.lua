@@ -1,7 +1,6 @@
 RELEASE = (arg[2] == nil)
 DEBUG = not RELEASE
 
-require "l2.error"
 libs = require "l2.libs"
 
 for i, m in ipairs(require "require") do
@@ -17,10 +16,19 @@ for i, m in ipairs(require "require") do
 	end
 end
 
-if DEBUG then
-	print("Running debug version...")
-	require "debug_version"
-elseif RELEASE then
-	print("Running release version...")
-	require "release_version"
+function love.load()
+	game:init()
+end
+
+function love.update(dt)
+	libs.update()
+	game:update(dt)
+end
+
+function love.draw()
+	game:draw()
+end
+
+function love.quit()
+	game:save()
 end
