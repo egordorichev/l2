@@ -1,5 +1,10 @@
 RELEASE = (arg[2] == nil)
 DEBUG = not RELEASE
+SCALE = 3
+SCREEN_WIDTH = love.graphics.getWidth()
+SCREEN_HEIGHT = love.graphics.getHeight()
+WIDTH = love.graphics.getWidth() / SCALE
+HEIGHT = love.graphics.getHeight() / SCALE
 
 libs = require "l2.libs"
 
@@ -17,7 +22,7 @@ for i, m in ipairs(require "require") do
 end
 
 function love.load()
-	game:init()
+	game:init(InGameState())
 end
 
 function love.update(dt)
