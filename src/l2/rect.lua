@@ -14,8 +14,12 @@ function Rect:set(x, y, w, h)
     self.h = h or 0
 end
 
-function Rect:get()
-    return self.x, self.y, self.w, self.h
+function Rect:get(expand)
+	if expand then
+		return self.x - expand, self.y - expand, self.w + expand * 2, self.h + expand * 2
+	end
+
+	return self.x, self.y, self.w, self.h
 end
 
 function Rect:clone(r)
@@ -56,7 +60,7 @@ function Rect:right(val)
         self.x = val - self.w
     end
 
-	return self.x + self.width
+	return self.x + self.w
 end
 
 function Rect:top(val)
@@ -69,15 +73,15 @@ end
 
 function Rect:bottom(val)
 	if val then
-        self.y = val - self.height
+        self.y = val - self.h
     end
 
-	return self.y + self.height
+	return self.y + self.h
 end
 
 function Rect:centerX(val)
 	if val then
-        self.x = val - self.while / 2
+        self.x = val - self.w / 2
     end
 
 	return self.x + self.w / 2

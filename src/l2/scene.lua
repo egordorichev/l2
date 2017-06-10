@@ -30,8 +30,12 @@ function Scene:remove(e)
     e:onRemove()
 end
 
+local function identity(...)
+	return ...
+end
+
 function Scene:getRandomEntity(filter)
-    filter = filter or function identity(...) return ... end
+    filter = filter or identity
     assert(#self.entities > 0, "Scene contains no entities")
 
     local e
@@ -99,7 +103,7 @@ function Scene:update(dt)
 
     if self.updateDistance then
         entities = {}
-        local x, y, w, h = self.camera:getBoundingBox(self.updateDistance)
+        local x, y, w, h = self.camera:get(self.updateDistance)
         self.sh:each(x, y, w, h, pushEntity, entities)
     end
 
@@ -132,7 +136,7 @@ end
 
 function Scene:getOnScreenEntities()
     local t = {}
-    local x, y, w, h = self.camera:getBoundingBox(self.drawDistance)
+    local x, y, w, h = self.camera:get(self.drawDistance)
 
     self.sh:each(x, y, w, h, pushEntity, t)
     table.sort(t, compareZIndex)

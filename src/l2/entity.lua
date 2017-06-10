@@ -334,7 +334,7 @@ function Entity:loadImage(filename, width, height)
 	if type(filename) == "userdata" then
     	self.image = filename
 	else
-    	self.image = Cache.load(filename)
+    	self.image = Assets.load(filename)
 	end
 
 	self.image:setFilter("nearest")
@@ -381,7 +381,7 @@ function Entity:playSound(filename, gain, always)
 		return
 	end
 
-	local sound = Cache.load(filename)
+	local sound = Assets.load(filename)
 
 	sound:setVolume(gain or 1)
 	sound:rewind()
@@ -531,7 +531,6 @@ function Entity:update(dt)
 
 	self:updateTouching(dt)
 	self:updateTimers(dt)
-	self:updateAttached()
 end
 
 function Entity:getDrawArgs()
@@ -554,14 +553,10 @@ local flashShader = love.graphics.newShader [[
 	}
 ]]
 
-local lastCanvas = nil
 local lastShader = nil
-local lastBlendMode = nil
 
 love.graphics.reset = lume.combine(love.graphics.reset, function()
-	lastCanvas = nil
 	lastShader = nil
-	lastBlendMode = nil
 end)
 
 function Entity:draw()
@@ -574,13 +569,6 @@ function Entity:draw()
 	end
 
 	local colorSet
-
-	local canvas = self.canvas or Game.framebuffer
-
-	if canvas ~= lastCanvas then
-		love.graphics.setCanvas(canvas)
-		lastCanvas = canvas
-	end
 
 	if self.color or self.alpha ~= 1 then
 		love.graphics.setColor(self:getDrawColorArgs())

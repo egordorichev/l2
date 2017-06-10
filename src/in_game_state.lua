@@ -1,17 +1,19 @@
 InGameState = State:extend()
 
 function InGameState:init()
+	InGameState.super.init(self)
 
+	self.scene:add(player)
 end
 
 function InGameState:destroy()
-
-end    
+	InGameState.super.destroy(self)
+end
 
 function InGameState:update(dt)
-
+	InGameState.super.update(self, dt)
 end
 
 function InGameState:draw()
-
+	InGameState.super.draw(self)
 end
