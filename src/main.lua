@@ -34,6 +34,14 @@ function love.draw()
 	game:draw()
 end
 
+function love.keypressed(key)
+	game:keyPressed(key)
+end
+
+function love.mousepressed(x, y, button)
+	game:mousePressed(x, y, button)
+end
+
 function love.quit()
 	game:save()
 end

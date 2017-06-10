@@ -2,6 +2,7 @@ return {
 	"l2.point",
 	"l2.rect",
 	"l2.assets",
+	"l2.input",
 	"l2.entity",
 	"l2.camera",
 	"l2.scene",

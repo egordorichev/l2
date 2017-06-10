@@ -74,7 +74,9 @@ function Game:update(dt)
 		end
 	end
 
+	Input.update(dt)
     self.state:update(dt)
+	Input.reset()
 end
 
 function Game:draw()
@@ -92,6 +94,29 @@ function Game:draw()
 
 	love.graphics.setCanvas()
 	love.graphics.draw(canvas, 0, 0, 0, SCALE, SCALE)
+end
+
+function Game:keyPressed(key)
+	Input.onKeyPress(key)
+
+	local x, y = Input.getMousePosition()
+	local zIndex = -math.huge
+	local entity = nil
+
+	self.state.scene.sh:each(x, y, 1, 1, function(e)
+		if e.onClick ~= Entity.onClick and e.zIndex > zIndex then
+	 		zIndex = e.zIndex
+	    	entity = e
+		end
+	end)
+
+	if entity then
+		entity:onClick(btn)
+	end
+end
+
+function Game:mousePressed(x, y, btn)
+	Input.onMousePress(x, y, btn)
 end
 
 game = Game()
