@@ -13,18 +13,23 @@ function Game:new()
 	self.shakeTimer = 0
 	self.flashTimer = 0
 	self.flashColor = nil
-	self.backgroundColor = { 0, 0, 0 }
+	self.backgroundColor = { 50, 50, 50 }
+	self.drawCalls = 0
 
 	canvas = love.graphics.newCanvas(WIDTH, HEIGHT)
 	canvas:setFilter("nearest", "nearest")
 end
 
 function Game:init(state)
-    self:switchState(state)
+	self:switchState(state)
+
+	if DEBUG then
+		Debug.init()
+	end
 end
 
 function Game:save()
-
+	Save.flush()
 end
 
 function Game:switchState(state)
@@ -42,11 +47,13 @@ function Game:flash(color, time)
 end
 
 function Game:update(dt)
-    if self.paused then
-        dt = 0
-    else
-        dt = dt * self.speed
-    end
+	if Debug.active then
+	    if self.paused then
+	        dt = 0
+	    else
+	        dt = dt * self.speed
+	    end
+	end
 
     if self.newState ~= nil then
         if self.state then
@@ -94,10 +101,29 @@ function Game:draw()
 
 	love.graphics.setCanvas()
 	love.graphics.draw(canvas, 0, 0, 0, SCALE, SCALE)
+
+	Debug.draw()
+	self.drawCalls = love.graphics.getStats().drawcalls
 end
 
 function Game:keyPressed(key)
+	if DEBUG and key == "f1" then
+		Debug.active = not Debug.active
+	end
+
+	if Debug.active then
+		return
+	end
+
 	Input.onKeyPress(key)
+end
+
+function Game:mousePressed(x, y, btn)
+	if Debug.active then
+		return
+	end
+
+	Input.onMousePress(x, y, btn)
 
 	local x, y = Input.getMousePosition()
 	local zIndex = -math.huge
@@ -113,10 +139,6 @@ function Game:keyPressed(key)
 	if entity then
 		entity:onClick(btn)
 	end
-end
-
-function Game:mousePressed(x, y, btn)
-	Input.onMousePress(x, y, btn)
 end
 
 game = Game()

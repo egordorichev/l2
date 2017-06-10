@@ -19,7 +19,7 @@ function Entity:new(options)
 
     self.dead = false
     self.zIndex = 0
-    self.health = 0
+    self.health = 1
     self.scene = nil
 
     self.frameSize = Rect()
@@ -39,6 +39,8 @@ function Entity:new(options)
     self.flashColor = { 255, 255, 255 }
     self.flashTimer = 0
     self.flickerTimer = 0
+
+	self.id = "entity"
 
     if options ~= nil then
             for k, v in pairs(options) do
@@ -229,7 +231,9 @@ function Entity:onOverlap(e)
 end
 
 function Entity:hurt(points)
-    self.health = self.health - points or 1
+	points = points or 1
+    self.health = self.health - points
+	self:flicker()
 
 	if self.health <= 0 and not self.dead then
     	self:kill()
@@ -553,12 +557,6 @@ local flashShader = love.graphics.newShader [[
 	}
 ]]
 
-local lastShader = nil
-
-love.graphics.reset = lume.combine(love.graphics.reset, function()
-	lastShader = nil
-end)
-
 function Entity:draw()
 	if not self.image then
 		return
@@ -583,14 +581,14 @@ function Entity:draw()
 		colorSet = true
 	end
 
-	if shader ~= lastShader then
-		love.graphics.setShader(shader)
-		lastShader = shader
-	end
+	local s = love.graphics.getShader()
+	love.graphics.setShader(shader)
 
-	love.graphics.draw( self.image, self:getDrawArgs() )
+	love.graphics.draw(self.image, self:getDrawArgs())
 
 	if colorSet then
 		love.graphics.setColor(255, 255, 255)
 	end
+
+	love.graphics.setShader(s)
 end

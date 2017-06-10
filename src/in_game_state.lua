@@ -3,6 +3,7 @@ InGameState = State:extend()
 function InGameState:init()
 	InGameState.super.init(self)
 
+	self.name = "ingame"
 	self.scene:add(player)
 end
 

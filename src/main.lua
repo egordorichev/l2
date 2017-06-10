@@ -23,6 +23,10 @@ end
 
 function love.load()
 	game:init(InGameState())
+
+	Input.register({
+		-- [ "test" ] = { "t", "escape" }
+	})
 end
 
 function love.update(dt)

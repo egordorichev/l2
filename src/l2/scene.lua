@@ -14,9 +14,11 @@ end
 
 function Scene:add(e)
     assert(e, "Expected entity")
-    table.insert(self.entities, e)
+    assert(not e.scene, "Entity is in another scene")
 
+    table.insert(self.entities, e)
     self.sh:add(e, e:get())
+
     e.scene = self
     e:onAdd(self)
 end
@@ -26,6 +28,8 @@ function Scene:remove(e)
     assert(e.scene == self, "Entity is in another scene")
 
     lume.remove(self.entities, e)
+	self.sh:remove(e)
+
     e.scene = nil
     e:onRemove()
 end

@@ -5,6 +5,7 @@ lume = require "lib.lume"
 coil = require "lib.coil"
 tick = require "lib.tick"
 shash = require "lib.shash"
+log = require "lib.log"
 Object = require "lib.classic"
 
 libs = {}

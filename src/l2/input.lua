@@ -11,8 +11,8 @@ end
 
 function Input.update(dt)
 	local scale = 1 / SCALE
-	Input.x = love.mouse.getX() * SCALE
-	Input.y = love.mouse.getY() * SCALE
+	Input.x = love.mouse.getX() * scale
+	Input.y = love.mouse.getY() * scale
 end
 
 function Input.register(id, keys)

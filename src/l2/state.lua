@@ -2,6 +2,7 @@ State = Object:extend()
 
 function State:new()
 	self.scene = nil
+	self.name = "state"
 end
 
 function State:init()
