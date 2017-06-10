@@ -11,8 +11,12 @@ function Point:set(x, y)
 end
 
 function Point:clone(p)
-	self.x = p.x
-	self.y = p.y
+	dest = dest or Point()
+
+    dest.x = self.x
+    dest.y = self.y
+	
+    return dest
 end
 
 function Point:overlaps(r)

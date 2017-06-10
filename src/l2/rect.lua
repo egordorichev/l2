@@ -19,12 +19,14 @@ function Rect:get()
 end
 
 function Rect:clone(r)
-    Rect.super.clone(self, r)
+	dest = dest or Rect()
 
-    if r:is(Rect) then
-    	self.w = r.w
-    	self.h = r.h
-    end
+	dest.x = self.x
+	dest.y = self.y
+	dest.w = self.w
+	dest.h = self.h
+
+	return dest
 end
 
 function Rect:overlaps(r)
@@ -73,34 +75,40 @@ function Rect:bottom(val)
 	return self.y + self.height
 end
 
+function Rect:centerX(val)
+	if val then
+        self.x = val - self.while / 2
+    end
+
+	return self.x + self.w / 2
+end
+
+function Rect:centerY(val)
+	if val then
+        self.y = val - self.h / 2
+    end
+
+	return self.y + self.h / 2
+end
+
+function Rect:center(_x, _y)
+	if _x then
+        self.x = _x - self.w / 2
+    end
+
+	if _y then
+        self.y = _y - self.h / 2
+    end
+
+	return self.x + self.w / 2, self.y + self.h / 2
+end
+
 function Rect:getDistance(r)
-	local x1, y1 = self:centerX(), self:centerY()
-	local x2 = r:is(Rect) and r:centerX() or r.x
-	local y2 = r:is(Rect) and r:centerY() or r.y
-
-	return lume.distance(self.x + self.w / 2, self.y + self.h / 2, r.x + (r.w and r.w / 2 or 0), r.y + (r.h and r.h / 2 or 0))
-end
-
-function Rect:getDistanceX(r)
-	local x1, y1 = self:centerX()
-	local x2 = r:is(Rect) and r:centerX() or r.x
-
-	return math.abs((self.x + self.w / 2) - (r.x + (r.w and r.w / 2 or 0)))
-end
-
-function Rect:getDistanceY(r)
-	local x1, y1 = self:centerY()
-	local x2 = r:is(Rect) and r:centerY() or r.y
-
-	return math.abs((self.y + self.w / 2) - (r.y + (r.w and r.w / 2 or 0)))
+	return lume.distance(self:centerX(), self:centerY(), r:centerX(), r:centerY())
 end
 
 function Rect:getAngle(r)
-	local x1, y1 = self:centerX(), self:centerY()
-	local x2 = r:is(Rect) and r:centerX() or r.x
-	local y2 = r:is(Rect) and r:centerY() or r.y
-
-	return lume.angle(self.x + self.w / 2, self.y + self.h / 2, r.x + (r.w and r.w / 2 or 0), r.y + (r.h and r.h / 2 or 0))
+	return lume.angle(self:centerX(), self:centerY(), r:centerX(), r:centerY())
 end
 
 function Rect:_str()

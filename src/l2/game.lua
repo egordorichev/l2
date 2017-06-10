@@ -10,7 +10,6 @@ function Game:new()
 end
 
 function Game:init(state)
-    self.camera = Camera()
     self:switchState(state)
 end
 
@@ -46,9 +45,7 @@ function Game:update(dt)
 end
 
 function Game:draw()
-    self.camera:set()
     self.state:draw()
-    self.camera:unset()
 end
 
 game = Game()

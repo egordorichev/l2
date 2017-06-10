@@ -4,6 +4,7 @@ flux = require "lib.flux"
 lume = require "lib.lume"
 coil = require "lib.coil"
 tick = require "lib.tick"
+shash = require "lib.shash"
 Object = require "lib.classic"
 
 libs = {}

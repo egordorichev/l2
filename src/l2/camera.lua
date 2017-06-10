@@ -1,8 +1,9 @@
-Camera = Object:extend()
+Camera = Rect:extend()
 
-function Camera:new()
-    self.x = 0
-    self.y = 0
+function Camera:new(follow)
+    Camera.super.new(self, 0, 0, WIDTH, HEIGHT)
+    self.follow = follow
+    self.speed = 2
 end
 
 function Camera:set()
@@ -12,4 +13,13 @@ end
 
 function Camera:unset()
     love.graphics.pop()
+end
+
+function Camera:update(dt)
+    if self.follow ~= nil then
+        if self:getDistance(self.follow) > 5 then
+            self.x = lume.lerp(self.x, self.follow:getCenterX() - self.w / 2, self.speed)
+            self.y = lume.lerp(self.y, self.follow:getCenterY() - self.h / 2, self.speed)
+        end
+    end
 end
