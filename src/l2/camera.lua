@@ -1,9 +1,11 @@
-Camera = Rect:extend()
+Camera = Entity:extend()
 
 function Camera:new(follow)
-    Camera.super.new(self, 0, 0, WIDTH, HEIGHT)
+    Camera.super.new(self)
     self.follow = follow
     self.speed = 2
+	self.w = WIDTH
+	self.h = HEIGHT
 end
 
 function Camera:set()

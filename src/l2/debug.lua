@@ -147,6 +147,5 @@ function Debug.drawEntity(e)
 	end
 
 	status, e.health = imgui.DragFloat("health", e.health)
-
 	status, e.x, e.y = imgui.DragFloat2("position", e.x, e.y)
 end
